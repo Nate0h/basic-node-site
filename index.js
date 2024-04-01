@@ -7,7 +7,10 @@ const server = http.createServer((req, res) => {
   q = url.parse(req.url, true);
   console.log(req.url);
   let filename = "." + req.url + ".html";
-  fs.readFile(filename, function (err, data) {
+  if (req.url == "/") {
+    filename = "./index.html";
+  }
+  fs.readFile(filename, (err, data) => {
     if (err) {
       res.writeHead(404, { "Content-Type": "text/html" });
       return res.end("404 Not Found");
